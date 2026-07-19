@@ -1,0 +1,57 @@
+@keyframes float {
+
+0%{
+
+transform:translateY(0px);
+
+}
+
+50%{
+
+transform:translateY(-10px);
+
+}
+
+100%{
+
+transform:translateY(0px);
+
+}
+
+}
+
+.float{
+
+animation:float 6s ease-in-out infinite;
+
+}
+
+
+
+@keyframes pulseGlow{
+
+0%{
+
+box-shadow:0 0 20px rgba(124,58,237,.2);
+
+}
+
+50%{
+
+box-shadow:0 0 40px rgba(124,58,237,.45);
+
+}
+
+100%{
+
+box-shadow:0 0 20px rgba(124,58,237,.2);
+
+}
+
+}
+
+.glow{
+
+animation:pulseGlow 3s infinite;
+
+}
