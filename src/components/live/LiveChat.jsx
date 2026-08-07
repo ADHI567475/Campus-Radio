@@ -1,169 +1,155 @@
+import { useEffect, useRef, useState } from "react";
+import { Send, Circle } from "lucide-react";
 import { motion } from "framer-motion";
-import {
-  Send,
-  Smile,
-  Pin,
-  ShieldCheck,
-} from "lucide-react";
 
-const messages = [
+const initialMessages = [
   {
-    user: "RJ Aryan",
-    text: "Welcome everyone ❤️ Tonight's show is all about your song requests!",
-    rj: true,
-  },
-  {
+    id: 1,
     user: "Rahul",
     text: "Play Believer 🔥",
+    time: "11:01",
   },
   {
-    user: "Ananya",
-    text: "Happy Birthday to my best friend 🥳",
+    id: 2,
+    user: "Anonymous",
+    text: "Happy Birthday Priya ❤️",
+    time: "11:02",
   },
   {
-    user: "Ajay",
-    text: "ECE rocks ❤️",
-  },
-  {
-    user: "Meghana",
-    text: "Can you dedicate Heat Waves to CSE girls 😂",
-  },
-  {
-    user: "Sandeep",
-    text: "Good evening everyone 👋",
+    id: 3,
+    user: "Sneha",
+    text: "RJ Maya is killing it today 😂",
+    time: "11:03",
   },
 ];
 
 export default function LiveChat() {
+  const [messages, setMessages] = useState(initialMessages);
+  const [message, setMessage] = useState("");
+
+  // Reference to the scrollable chat container
+  const chatRef = useRef(null);
+
+  // Skip auto-scroll on the first render
+  const firstRender = useRef(true);
+
+  useEffect(() => {
+    if (firstRender.current) {
+      firstRender.current = false;
+      return;
+    }
+
+    if (chatRef.current) {
+      chatRef.current.scrollTop = chatRef.current.scrollHeight;
+    }
+  }, [messages]);
+
+  const sendMessage = () => {
+    if (!message.trim()) return;
+
+    const now = new Date();
+
+    const time = now.toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+
+    setMessages((prev) => [
+      ...prev,
+      {
+        id: Date.now(),
+        user: "You",
+        text: message,
+        time,
+      },
+    ]);
+
+    setMessage("");
+  };
+
   return (
-    <motion.div
-      initial={{ opacity: 0, x: 40 }}
-      whileInView={{ opacity: 1, x: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.7 }}
-      className="rounded-3xl border border-white/10 bg-white/5 backdrop-blur-2xl overflow-hidden"
-    >
+    <div className="rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl">
       {/* Header */}
-
       <div className="flex items-center justify-between border-b border-white/10 p-5">
-
         <div>
+          <h2 className="text-xl font-bold text-white">
+            Live Chat
+          </h2>
 
-          <div className="flex items-center gap-3">
+          <p className="mt-1 flex items-center gap-2 text-sm text-green-400">
+            <Circle
+              size={10}
+              fill="currentColor"
+              className="animate-pulse"
+            />
 
-            <span className="h-3 w-3 rounded-full bg-red-500 animate-pulse" />
-
-            <h2 className="text-xl font-bold text-white">
-              Live Chat
-            </h2>
-
-          </div>
-
-          <p className="mt-1 text-sm text-zinc-400">
-            Chat with the RJs and fellow students
+            Chat is Live
           </p>
-
         </div>
 
-        <div className="rounded-full bg-violet-500/20 px-4 py-2 text-sm font-semibold text-violet-300">
-          128 Online
-        </div>
-
-      </div>
-
-      {/* Pinned */}
-
-      <div className="flex items-center gap-3 border-b border-white/10 bg-violet-500/10 p-4">
-
-        <Pin className="h-4 w-4 text-violet-300" />
-
-        <p className="text-sm text-violet-200">
-          Confession Night starts at 8 PM ❤️
-        </p>
-
+        <span className="rounded-full bg-violet-500/20 px-3 py-1 text-sm text-violet-300">
+          {messages.length} Messages
+        </span>
       </div>
 
       {/* Messages */}
-
-      <div className="h-[420px] space-y-4 overflow-y-auto p-5">
-
-        {messages.map((msg, index) => (
-
+      <div
+        ref={chatRef}
+        className="h-[420px] overflow-y-auto space-y-4 p-5"
+      >
+        {messages.map((msg) => (
           <motion.div
-            key={index}
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{
-              delay: index * 0.08,
+            key={msg.id}
+            initial={{
+              opacity: 0,
+              y: 20,
             }}
-            className="flex gap-3"
+            animate={{
+              opacity: 1,
+              y: 0,
+            }}
+            className={`rounded-2xl p-4 ${
+              msg.user === "You"
+                ? "ml-10 bg-violet-600/20"
+                : "mr-10 bg-white/5"
+            }`}
           >
+            <div className="mb-2 flex items-center justify-between">
+              <span className="font-semibold text-cyan-300">
+                {msg.user}
+              </span>
 
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-violet-600 to-cyan-500 font-bold text-white">
-
-              {msg.user.charAt(0)}
-
+              <span className="text-xs text-zinc-500">
+                {msg.time}
+              </span>
             </div>
 
-            <div className="flex-1">
-
-              <div className="flex items-center gap-2">
-
-                <span className="font-semibold text-white">
-
-                  {msg.user}
-
-                </span>
-
-                {msg.rj && (
-                  <span className="flex items-center gap-1 rounded-full bg-cyan-500/20 px-2 py-1 text-xs text-cyan-300">
-
-                    <ShieldCheck size={12} />
-
-                    RJ
-
-                  </span>
-                )}
-
-              </div>
-
-              <p className="mt-1 text-sm text-zinc-300">
-
-                {msg.text}
-
-              </p>
-
-            </div>
-
+            <p className="text-white">
+              {msg.text}
+            </p>
           </motion.div>
-
         ))}
-
       </div>
 
       {/* Input */}
+      <div className="flex gap-3 border-t border-white/10 p-5">
+        <input
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") sendMessage();
+          }}
+          placeholder="Send a live message..."
+          className="flex-1 rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white outline-none focus:border-violet-500"
+        />
 
-      <div className="border-t border-white/10 p-5">
-
-        <div className="flex items-center gap-3 rounded-2xl border border-white/10 bg-black/20 px-4 py-3">
-
-          <Smile className="text-zinc-400" />
-
-          <input
-            placeholder="Login to join the conversation..."
-            disabled
-            className="flex-1 bg-transparent text-white placeholder:text-zinc-500 outline-none"
-          />
-
-          <button className="rounded-xl bg-gradient-to-r from-violet-600 to-cyan-500 p-3 text-white transition hover:scale-105">
-
-            <Send size={18} />
-
-          </button>
-
-        </div>
-
+        <button
+          onClick={sendMessage}
+          className="rounded-xl bg-violet-600 p-4 transition hover:bg-violet-500"
+        >
+          <Send size={18} />
+        </button>
       </div>
-    </motion.div>
+    </div>
   );
 }

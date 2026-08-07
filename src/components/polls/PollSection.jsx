@@ -1,6 +1,7 @@
 import GlassCard from "../ui/GlassCard";
 import SectionHeader from "../ui/SectionHeader";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import {
   BarChart3,
   Users,
@@ -42,11 +43,11 @@ const polls = [
 ];
 
 export default function PollSection() {
+  const navigate = useNavigate();
+
   return (
     <section className="relative py-28">
-
       <div className="mx-auto max-w-7xl px-6">
-
         <SectionHeader
           badge="📊 POLLS"
           title="Campus"
@@ -55,50 +56,45 @@ export default function PollSection() {
         />
 
         <div className="mt-16 grid gap-8 lg:grid-cols-3">
-
           {polls.map((poll, index) => (
-
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{
-                delay: index * 0.15,
-              }}
+              transition={{ delay: index * 0.15 }}
               whileHover={{
                 y: -8,
+                scale: 1.02,
               }}
+              onClick={() => navigate("/polls")}
+              className="cursor-pointer"
             >
+              <GlassCard className="group h-full rounded-3xl p-7 transition-all duration-300">
 
-              <GlassCard className="group h-full rounded-3xl p-7">
-
+                {/* Header */}
                 <div className="flex items-center justify-between">
 
                   <div className="flex items-center gap-2 text-cyan-300">
-
                     <BarChart3 size={18} />
-
                     <span className="text-sm font-medium">
                       Live Poll
                     </span>
-
                   </div>
 
                   <div className="flex items-center gap-2 text-xs text-zinc-400">
-
                     <Clock size={15} />
-
                     Ends in {poll.endsIn}
-
                   </div>
 
                 </div>
 
-                <h3 className="mt-6 text-xl font-bold text-white leading-8">
+                {/* Question */}
+                <h3 className="mt-6 text-xl font-bold leading-8 text-white">
                   {poll.question}
                 </h3>
 
+                {/* Poll Options */}
                 <div className="mt-8 space-y-5">
 
                   {poll.options.map((option) => (
@@ -126,9 +122,7 @@ export default function PollSection() {
                             width: `${option.percent}%`,
                           }}
                           viewport={{ once: true }}
-                          transition={{
-                            duration: 1,
-                          }}
+                          transition={{ duration: 1 }}
                         />
 
                       </div>
@@ -139,6 +133,7 @@ export default function PollSection() {
 
                 </div>
 
+                {/* Footer */}
                 <div className="mt-8 flex items-center justify-between border-t border-white/10 pt-6">
 
                   <div className="flex items-center gap-2 text-zinc-400">
@@ -149,26 +144,24 @@ export default function PollSection() {
 
                   </div>
 
-                  <button className="flex items-center gap-2 text-cyan-300 transition group-hover:gap-3">
-
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      navigate("/polls");
+                    }}
+                    className="flex items-center gap-2 text-cyan-300 transition-all duration-300 hover:text-cyan-200 group-hover:gap-3"
+                  >
                     Vote
-
                     <ArrowRight size={18} />
-
                   </button>
 
                 </div>
 
               </GlassCard>
-
             </motion.div>
-
           ))}
-
         </div>
-
       </div>
-
     </section>
   );
 }

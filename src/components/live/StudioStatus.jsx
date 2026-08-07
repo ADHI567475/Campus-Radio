@@ -113,10 +113,10 @@ export default function StudioStatus() {
               </h4>
             </div>
 
-            <button className="mt-8 flex items-center gap-2 rounded-xl bg-gradient-to-r from-violet-600 to-cyan-500 px-6 py-3 font-semibold text-white transition hover:scale-105">
+            {/* <button className="mt-8 flex items-center gap-2 rounded-xl bg-gradient-to-r from-violet-600 to-cyan-500 px-6 py-3 font-semibold text-white transition hover:scale-105">
               Join Live Chat
               <ArrowRight size={18} />
-            </button>
+            </button> */}
           </>
         ) : (
           <>

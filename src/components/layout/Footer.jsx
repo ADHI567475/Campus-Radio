@@ -1,8 +1,11 @@
 import { motion } from "framer-motion";
 import { Radio, Music2, ArrowRight } from "lucide-react";
 import { FaInstagram, FaLinkedin, FaEnvelope } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 export default function Footer() {
+  const navigate = useNavigate();
+
   return (
     <footer className="relative overflow-hidden border-t border-white/10 bg-black/20">
       {/* Background Glow */}
@@ -34,11 +37,17 @@ export default function Footer() {
           </p>
 
           <div className="mt-10 flex flex-wrap justify-center gap-5">
-            <button className="rounded-full bg-gradient-to-r from-violet-600 to-cyan-500 px-8 py-4 font-semibold text-white transition duration-300 hover:scale-105">
-              Become an RJ
+            <button
+              onClick={() => navigate("/campus-desk")}
+              className="rounded-full bg-gradient-to-r from-violet-600 to-cyan-500 px-8 py-4 font-semibold text-white transition duration-300 hover:scale-105 hover:shadow-[0_0_35px_rgba(124,58,237,0.35)]"
+            >
+              📰 Campus Desk
             </button>
 
-            <button className="flex items-center gap-2 rounded-full border border-white/10 px-8 py-4 text-white transition hover:border-cyan-400 hover:text-cyan-300">
+            <button
+              onClick={() => navigate("/live")}
+              className="flex items-center gap-2 rounded-full border border-white/10 px-8 py-4 text-white transition duration-300 hover:border-cyan-400 hover:bg-cyan-400/10 hover:text-cyan-300"
+            >
               Listen Live
               <ArrowRight size={18} />
             </button>
@@ -50,6 +59,7 @@ export default function Footer() {
 
         {/* Footer Grid */}
         <div className="grid gap-12 md:grid-cols-4">
+
           {/* Brand */}
           <div>
             <div className="flex items-center gap-3">
@@ -67,22 +77,54 @@ export default function Footer() {
             </div>
 
             <p className="mt-6 leading-7 text-zinc-400">
-              Bringing students together through music, ideas, discussions,
-              and unforgettable campus experiences.
+              Bringing students together through music, ideas,
+              discussions and unforgettable campus experiences.
             </p>
           </div>
 
-          {/* Navigation */}
+          {/* Explore */}
           <div>
             <h4 className="font-semibold text-white">
               Explore
             </h4>
 
-            <div className="mt-5 space-y-3 text-zinc-400">
-              <p>Live Radio</p>
-              <p>Pulse Wall</p>
-              <p>Polls</p>
-              <p>Events</p>
+            <div className="mt-5 space-y-3">
+
+              <button
+                onClick={() => navigate("/live")}
+                className="block text-zinc-400 transition duration-300 hover:translate-x-2 hover:text-cyan-300"
+              >
+                Live Radio
+              </button>
+
+              <button
+                onClick={() => navigate("/campus-news")}
+                className="block text-zinc-400 transition duration-300 hover:translate-x-2 hover:text-cyan-300"
+              >
+                Explore Campus
+              </button>
+
+              <button
+                onClick={() => navigate("/discussions")}
+                className="block text-zinc-400 transition duration-300 hover:translate-x-2 hover:text-cyan-300"
+              >
+                Pulse Wall
+              </button>
+
+              <button
+                onClick={() => navigate("/polls")}
+                className="block text-zinc-400 transition duration-300 hover:translate-x-2 hover:text-cyan-300"
+              >
+                Polls
+              </button>
+
+              <button
+                onClick={() => navigate("/events")}
+                className="block text-zinc-400 transition duration-300 hover:translate-x-2 hover:text-cyan-300"
+              >
+                Events
+              </button>
+
             </div>
           </div>
 
@@ -92,44 +134,92 @@ export default function Footer() {
               Community
             </h4>
 
-            <div className="mt-5 space-y-3 text-zinc-400">
-              <p>Become an RJ</p>
-              <p>Open Mic</p>
-              <p>Podcasts</p>
-              <p>Support</p>
+            <div className="mt-5 space-y-3">
+
+              <button
+                onClick={() => navigate("/campus-desk")}
+                className="block text-zinc-400 transition duration-300 hover:translate-x-2 hover:text-cyan-300"
+              >
+                Campus Desk
+              </button>
+
+              <button
+                onClick={() => navigate("/events")}
+                className="block text-zinc-400 transition duration-300 hover:translate-x-2 hover:text-cyan-300"
+              >
+                Open Mic
+              </button>
+
+              <button
+                onClick={() => navigate("/events")}
+                className="block text-zinc-400 transition duration-300 hover:translate-x-2 hover:text-cyan-300"
+              >
+                Podcasts
+              </button>
+
+              <button
+                onClick={() => navigate("/profile")}
+                className="block text-zinc-400 transition duration-300 hover:translate-x-2 hover:text-cyan-300"
+              >
+                Support
+              </button>
+
             </div>
           </div>
 
-          {/* Social */}
+          {/* Connect */}
           <div>
             <h4 className="font-semibold text-white">
               Connect
             </h4>
 
             <div className="mt-5 flex gap-4">
-              <button className="rounded-full bg-white/5 p-3 text-zinc-300 transition hover:bg-violet-500 hover:text-white">
+
+              <button
+                onClick={() =>
+                  window.open("https://instagram.com", "_blank")
+                }
+                className="rounded-full bg-white/5 p-3 text-zinc-300 transition duration-300 hover:scale-110 hover:bg-violet-500 hover:text-white"
+              >
                 <FaInstagram size={20} />
               </button>
 
-              <button className="rounded-full bg-white/5 p-3 text-zinc-300 transition hover:bg-violet-500 hover:text-white">
+              <button
+                onClick={() =>
+                  window.open("https://linkedin.com", "_blank")
+                }
+                className="rounded-full bg-white/5 p-3 text-zinc-300 transition duration-300 hover:scale-110 hover:bg-violet-500 hover:text-white"
+              >
                 <FaLinkedin size={20} />
               </button>
 
-              <button className="rounded-full bg-white/5 p-3 text-zinc-300 transition hover:bg-violet-500 hover:text-white">
+              <button
+                onClick={() =>
+                  (window.location.href =
+                    "mailto:campusradio@example.com")
+                }
+                className="rounded-full bg-white/5 p-3 text-zinc-300 transition duration-300 hover:scale-110 hover:bg-violet-500 hover:text-white"
+              >
                 <FaEnvelope size={20} />
               </button>
+
             </div>
           </div>
+
         </div>
 
         {/* Bottom */}
         <div className="mt-20 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-8 text-sm text-zinc-500 md:flex-row">
-          <p>© 2026 CAMPUS RADIO. All rights reserved.</p>
+
+          <p>
+            © 2026 CAMPUS RADIO. All rights reserved.
+          </p>
 
           <div className="flex items-center gap-2">
             <Music2 size={16} />
             <span>Made for Students.</span>
           </div>
+
         </div>
       </div>
     </footer>

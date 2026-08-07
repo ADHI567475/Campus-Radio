@@ -7,13 +7,13 @@ import PollSection from "./components/polls/PollSection";
 import EventsSection from "./components/events/EventsSection";
 import Footer from "./components/layout/Footer";
 import Schedule from "./components/live/Schedule";
+//import CampusFeed from "./components/home/CampusFeed";
 
 export default function App() {
   return (
     <>
-      <AnimatedBackground />
-      <Navbar />
-
+      {<AnimatedBackground />}
+      { <Navbar /> } 
       <Hero />
       <LiveNow />
       <ThoughtsSection />
@@ -21,6 +21,7 @@ export default function App() {
       <EventsSection />
       <Schedule />
       <Footer />
+      {/* { <CampusFeed />} */}
       
     </>
   );

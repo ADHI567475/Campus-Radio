@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import {
   Headphones,
   ArrowRight,
@@ -28,6 +29,8 @@ const stats = [
 ];
 
 export default function HeroContent() {
+  const navigate = useNavigate();
+
   return (
     <motion.div
       initial={{ opacity: 0, x: -40 }}
@@ -83,8 +86,9 @@ export default function HeroContent() {
               }}
               whileHover={{
                 y: -6,
+                scale: 1.03,
               }}
-              className="rounded-2xl border border-white/10 bg-white/5 p-5 backdrop-blur-xl"
+              className="cursor-pointer rounded-2xl border border-white/10 bg-white/5 p-5 backdrop-blur-xl"
             >
               <Icon className="mb-3 h-6 w-6 text-violet-400" />
 
@@ -102,15 +106,35 @@ export default function HeroContent() {
 
       {/* Buttons */}
       <div className="mt-10 flex flex-wrap gap-4">
-        <GlowButton className="flex items-center gap-2">
-          <Headphones size={18} />
-          Listen Live
-        </GlowButton>
 
-        <button className="flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-7 py-3 text-white backdrop-blur-xl transition-all duration-300 hover:border-white/20 hover:bg-white/10">
+        <motion.div
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          <GlowButton
+            onClick={() => navigate("/live")}
+            className="flex items-center gap-2"
+          >
+            <Headphones size={18} />
+            Listen Live
+          </GlowButton>
+        </motion.div>
+
+        <motion.button
+          whileHover={{
+            scale: 1.05,
+            x: 3,
+          }}
+          whileTap={{
+            scale: 0.95,
+          }}
+          onClick={() => navigate("/campus-news")}
+          className="flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-7 py-3 text-white backdrop-blur-xl transition-all duration-300 hover:border-violet-400/40 hover:bg-white/10"
+        >
           Explore Campus
           <ArrowRight size={18} />
-        </button>
+        </motion.button>
+
       </div>
     </motion.div>
   );
